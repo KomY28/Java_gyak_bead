@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Üzenetek - NB1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+
+            <header id="header">
+                <a th:href="@{/}" class="logo"><strong>NB1 Adatbázis</strong> Üzenetek</a>
+            </header>
+
+            <section>
+                <header class="main">
+                    <h1>Beérkezett Üzenetek</h1>
+                </header>
+
+                <p>Itt láthatóak a kapcsolat űrlapon keresztül érkezett megkeresések, időrendben csökkenő sorrendben.</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Küldés Ideje</th>
+                            <th>Név</th>
+                            <th>Email</th>
+                            <th>Üzenet</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="msg : ${uzenetek}">
+                            <td th:text="${#temporals.format(msg.kuldesIdeje, 'yyyy-MM-dd HH:mm')}">2023-01-01 12:00</td>
+                            <td th:text="${msg.nev}">Minta Péter</td>
+                            <td th:text="${msg.email}">email@cim.hu</td>
+                            <td th:text="${msg.szoveg}">Ez egy üzenet...</td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(uzenetek)}">
+                            <td colspan="4" style="text-align: center;">Nincs megjeleníthető üzenet.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>Menü</h2></header>
+                <ul>
+                    <li>

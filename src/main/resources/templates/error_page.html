@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hiba</title>
+</head>
+<body style="background-color: #ffe6e6; padding: 50px;">
+<h1 style="color: red;">Hiba történt a diagram betöltésekor!</h1>
+<p><strong>A hibaüzenet:</strong></p>
+<pre th:text="${errorMessage}" style="background: #fff; padding: 20px; border: 1px solid red;"></pre>
+<br>
+<a href="/">Vissza a főoldalra</a>
+</body>
+</html>

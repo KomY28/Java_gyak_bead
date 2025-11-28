@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Regisztráció - NB1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+
+            <header id="header">
+                <a th:href="@{/}" class="logo"><strong>NB1 Adatbázis</strong> Regisztráció</a>
+            </header>
+
+            <section>
+                <h3>Fiók létrehozása</h3>
+
+                <div th:if="${param.success}">
+                    <div class="box" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb;">
+                        Sikeres regisztráció! Most már <a th:href="@{/login}">bejelentkezhet</a>.
+                    </div>
+                </div>
+
+                <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
+                    <div class="row gtr-uniform">
+                        <div class="col-12">
+                            <label for="name">Teljes Név</label>
+                            <input type="text" id="name" th:field="*{name}" placeholder="Pl. Kovács János" />
+                            <p th:errors="*{name}" class="text-danger" style="color:red; font-size: 0.8em;"></p>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email">Email Cím</label>
+                            <input type="email" id="email" th:field="*{email}" placeholder="minta@email.hu" />
+                            <p th:errors="*{email}" class="text-danger" style="color:red; font-size: 0.8em;"></p>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="password">Jelszó</label>
+                            <input type="password" id="password" th:field="*{password}" placeholder="Jelszó" />
+                            <p th:errors="*{password}" class="text-danger" style="color:red; font-size: 0.8em;"></p>
+                        </div>
+
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><input type="submit" value="Regisztráció" class="primary" /></li>
+                                <li><input type="reset" value="Törlés" /></li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+                            <p>Már van fiókja? <a th:href="@{/login}">Jelentkezzen be itt!</a></p>
+                        </div>
+                    </div>
+                </form>
+
+            </section>
+
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>Menü</h2></header>
+                <ul>
+                    <li><a th:href="@{/}">Főoldal</a></li>
+                    <li><a th:href="@{/database}">Adatbázis (Lista)</a></li>
+                    <li><a th:href="@{/diagram}">Diagramok</a></li>
+                    <li><a th:href="@{/rest}">REST API</a></li>
+                    <li><a th:href="@{/contact}">Kapcsolat</a></li>
+
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/messages}">Üzenetek</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/crud}">CRUD Műveletek</a></li>
+
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}" style="color: red;">Admin Felület</a>
+                    </li>
+
+                    <hr>
+
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}">Belépés</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/register}" class="button primary fit">Regisztráció</a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <span style="font-size: 0.8em;">Belépve mint: <b sec:authentication="name">User</b></span>
+                        <form th:action="@{/logout}" method="post" style="margin-top: 5px;">
+                            <input type="submit" value="Kijelentkezés" />
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/browser.min.js}"></script>
+<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/assets/js/util.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>
