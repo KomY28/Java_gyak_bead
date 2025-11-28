@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Klub Szerkesztése</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+
+            <section>
+                <h2 th:text="${pageTitle}">Klub Adatok</h2>
+
+                <form th:action="@{/crud/save}" th:object="${klub}" method="post">
+
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="row gtr-uniform">
+                        <div class="col-12">
+                            <label>Csapatnév:</label>
+                            <input type="text" th:field="*{csapatnev}" placeholder="Írja be a csapat nevét" required />
+                        </div>
+
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><button type="submit" class="button primary">Mentés</button></li>
+                                <li><a th:href="@{/crud}" class="button">Mégse</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>Menü</h2></header>
+                <ul>
+                    <li><a th:href="@{/}">Főoldal</a></li>
+                    <li><a th:href="@{/database}">Adatbázis (Lista)</a></li>
+                    <li><a th:href="@{/diagram}">Diagramok</a></li>
+                    <li><a th:href="@{/rest}">REST API</a></li>
+                    <li><a th:href="@{/contact}">Kapcsolat</a></li>
+
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/messages}">Üzenetek</a></li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/crud}" class="button fit">CRUD Műveletek</a>
+                    </li>
+
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}" style="color: red;">Admin Felület</a>
+                    </li>
+
+                    <hr>
+                    <li sec:authorize="isAuthenticated()">
+                        <span style="font-size: 0.8em;">Belépve: <b sec:authentication="name">User</b></span>
+                        <form th:action="@{/logout}" method="post" style="margin-top: 5px;">
+                            <input type="submit" value="Kijelentkezés" />
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/browser.min.js}"></script>
+<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/assets/js/util.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>

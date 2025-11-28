@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Adatbázis - NB1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a th:href="@{/}" class="logo"><strong>NB1 Adatbázis</strong> Lista</a>
+            </header>
+            <section>
+                <header class="main">
+                    <h1>NB1 Játékosok Listája</h1>
+                </header>
+                <p>Az alábbi táblázat a <strong>Labdarúgók</strong>, <strong>Klubok</strong> és <strong>Posztok</strong> táblák összekapcsolt adatait tartalmazza.</p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Név</th>
+                            <th>Csapat (Klub)</th>
+                            <th>Poszt</th>
+                            <th>Érték (ezer €)</th>
+                            <th>Mezszám</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="foci : ${labdarugok}">
+                            <td th:text="${foci.vezeteknev + ' ' + foci.utonev}">Minta János</td>
+                            <td th:text="${foci.klub != null} ? ${foci.klub.csapatnev} : 'Nincs klub'">Vasas</td>
+                            <td th:text="${foci.poszt != null} ? ${foci.poszt.nev} : 'Ismeretlen'">Védő</td>
+                            <td th:text="${foci.ertek}">100</td>
+                            <td th:text="${foci.mezszam}">10</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>Menü</h2></header>
+                <ul>
+                    <li><a th:href="@{/}">Főoldal</a></li>
+                    <li><a th:href="@{/database}" class="button fit">Adatbázis (Lista)</a></li>
+                    <li><a th:href="@{/diagram}">Diagramok</a></li>
+                    <li><a th:href="@{/rest}">REST API</a></li>
+                    <li><a th:href="@{/contact}">Kapcsolat</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/messages}">Üzenetek</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/crud}">CRUD Műveletek</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" style="color: red;">Admin Felület</a></li>
+                    <hr>
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Belépés</a></li>
+                    <li sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post"><input type="submit" value="Kijelentkezés" /></form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/browser.min.js}"></script>
+<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/assets/js/util.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>

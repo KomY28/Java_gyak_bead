@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>REST API - NB1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+            <header id="header">
+                <a th:href="@{/}" class="logo"><strong>NB1 Adatbázis</strong> API</a>
+            </header>
+
+            <section>
+                <h1>RESTful API Dokumentáció</h1>
+                <p>Az alkalmazás biztosít egy publikus API-t a klubok kezelésére.</p>
+
+                <h3>Elérhető Végpontok:</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Metódus</th>
+                            <th>URL</th>
+                            <th>Leírás</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/api/klubok</td>
+                            <td>Összes klub listázása (JSON)</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/api/klubok/{id}</td>
+                            <td>Egy adott klub lekérése ID alapján</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/api/klubok</td>
+                            <td>Új klub létrehozása (Body: JSON)</td>
+                        </tr>
+                        <tr>
+                            <td>DELETE</td>
+                            <td>/api/klubok/{id}</td>
+                            <td>Klub törlése</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Tesztelés:</h3>
+                <p>Kattints ide a lista lekéréséhez: <a th:href="@{/api/klubok}" target="_blank">/api/klubok megnyitása</a></p>
+            </section>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>Menü</h2></header>
+                <ul>
+                    <li><a th:href="@{/}">Főoldal</a></li>
+                    <li><a th:href="@{/database}">Adatbázis (Lista)</a></li>
+                    <li><a th:href="@{/diagram}">Diagramok</a></li>
+                    <li><a th:href="@{/rest}" class="button fit">REST API</a></li>
+                    <li><a th:href="@{/contact}">Kapcsolat</a></li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/messages}">Üzenetek (Csak tagoknak)</a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/crud}">CRUD Műveletek</a>
+                    </li>
+
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}" style="color: red;">Admin Felület</a>
+                    </li>
+
+                    <hr>
+
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}">Belépés</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/register}">Regisztráció</a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <span style="font-size: 0.8em;">Belépve mint: <b sec:authentication="name">User</b></span>
+                        <form th:action="@{/logout}" method="post" style="margin-top: 5px;">
+                            <input type="submit" value="Kijelentkezés" />
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/browser.min.js}"></script>
+<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/assets/js/util.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

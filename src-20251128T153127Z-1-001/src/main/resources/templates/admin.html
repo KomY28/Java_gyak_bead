@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Admin Felület - NB1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+
+            <header id="header">
+                <a th:href="@{/}" class="logo"><strong>NB1 Adatbázis</strong> ADMINISZTRÁCIÓ</a>
+            </header>
+
+            <section>
+                <div class="box" style="background-color: #ffe5e5; border-color: #ffadad; color: #cc0000;">
+                    <strong>FIGYELEM!</strong> Ön a védett adminisztrátori felületen tartózkodik.
+                </div>
+
+                <header class="main">
+                    <h1>Regisztrált Felhasználók Kezelése</h1>
+                </header>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Név</th>
+                            <th>Email cím</th>
+                            <th>Szerepkörök</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.id}">1</td>
+                            <td th:text="${user.name}">Kovács Béla</td>
+                            <td th:text="${user.email}">bela@mail.hu</td>
+                            <td>
+                                <span th:each="role : ${user.roles}" th:text="${role.name} + ' '">ROLE_USER</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>Menü</h2></header>
+                <ul>
+                    <li><a th:href="@{/}">Főoldal</a></li>
+                    <li><a th:href="@{/database}">Adatbázis (Lista)</a></li>
+                    <li><a th:href="@{/diagram}">Diagramok</a></li>
+                    <li><a th:href="@{/rest}">REST API</a></li>
+                    <li><a th:href="@{/contact}">Kapcsolat</a></li>
+
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/messages}">Üzenetek</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/crud}">CRUD Műveletek</a></li>
+
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}" class="button fit" style="background-color: #cc0000; color: white;">Admin Felület</a>
+                    </li>
+
+                    <hr>
+                    <li sec:authorize="isAuthenticated()">
+                        <span style="font-size: 0.8em;">Belépve: <b sec:authentication="name">Admin</b></span>
+                        <form th:action="@{/logout}" method="post" style="margin-top: 5px;">
+                            <input type="submit" value="Kijelentkezés" />
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/browser.min.js}"></script>
+<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/assets/js/util.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>

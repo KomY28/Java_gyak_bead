@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>NB1 Adatbázis</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+
+    <div id="main">
+        <div class="inner">
+
+            <header id="header">
+                <a th:href="@{/}" class="logo"><strong>NB1 Stats</strong> - A magyar foci otthona</a>
+                <ul class="icons">
+                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                </ul>
+            </header>
+
+            <section id="banner">
+                <div class="content">
+                    <header>
+                        <h1>NB1 Elemző Központ<br />
+                            Minden ami magyar foci</h1>
+                        <p>Statisztikák, Elemzések, Játékosadatok egy helyen</p>
+                    </header>
+                    <p>Üdvözöljük weboldalunkon! Cégünk célja, hogy a Magyar Labdarúgó Bajnokság (OTP Bank Liga) adatait átláthatóan, modern eszközökkel prezentálja a szurkolók és szakemberek számára. Adatbázisunk naprakész információkat tartalmaz az összes csapatról és játékosról.</p>
+                    <ul class="actions">
+                        <li><a href="#features" class="button big">Szolgáltatásaink</a></li>
+                        <li sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/register}" class="button big primary">Csatlakozom</a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="image object">
+                <img th:src="@{/images/focibanner.jpg}" alt="Stadion kép"
+                     onerror="this.src='https://images.unsplash.com/photo-1522778119026-d647f0565c6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';" />
+            </span>
+            </section>
+
+            <section id="features">
+                <header class="major">
+                    <h2>Miért válasszon minket?</h2>
+                </header>
+                <div class="features">
+                    <article>
+                        <span class="icon fa-gem"></span>
+                        <div class="content">
+                            <h3>Precíz Adatbázis</h3>
+                            <p>Több száz játékos és mérkőzés adatait tároljuk strukturált formában. Rendszerünk biztosítja az adatok gyors elérését és hitelességét.</p>
+                        </div>
+                    </article>
+                    <article>
+                        <span class="icon solid fa-chart-bar"></span>
+                        <div class="content">
+                            <h3>Vizuális Elemzések</h3>
+                            <p>Nem csak számokat mutatunk. Interaktív diagramjaink segítségével (Chart.js) látványosan elemezheti a csapatok teljesítményét.</p>
+                        </div>
+                    </article>
+                    <article>
+                        <span class="icon solid fa-users"></span>
+                        <div class="content">
+                            <h3>Közösségi Élmény</h3>
+                            <p>Regisztrált tagjaink kapcsolatba léphetnek velünk, üzeneteket küldhetnek, és hozzáférhetnek az exkluzív tartalmakhoz.</p>
+                        </div>
+                    </article>
+                    <article>
+                        <span class="icon solid fa-rocket"></span>
+                        <div class="content">
+                            <h3>Folyamatos Fejlődés</h3>
+                            <p>Platformunkat folyamatosan bővítjük új funkciókkal, hogy a magyar labdarúgás szerelmesei a legjobb kiszolgálást kapják.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section>
+                <header class="major">
+                    <h2>Kiemelt Tartalmak</h2>
+                </header>
+                <div class="posts">
+                    <article>
+                        <a href="#" class="image">
+                            <img th:src="@{/images/foci1.jpg}" alt=""
+                                 onerror="this.src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';"/>
+                        </a>
+                        <h3>Adatbázis Böngészése</h3>
+                        <p>Tekintse meg a bajnokságban szereplő csapatok és játékosok részletes listáját.</p>
+                        <ul class="actions">
+                            <li><a th:href="@{/database}" class="button">Megnyitás</a></li>
+                        </ul>
+                    </article>
+                    <article>
+                        <a href="#" class="image">
+                            <img th:src="@{/images/foci2.jpeg}" alt=""
+                                 onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';"/>
+                        </a>
+                        <h3>Csapatok Összehasonlítása</h3>
+                        <p>Diagramok segítségével hasonlíthatja össze a klubok teljesítményét az elmúlt szezonban.</p>
+                        <ul class="actions">
+                            <li><a th:href="@{/diagram}" class="button">Diagramok</a></li>
+                        </ul>
+                    </article>
+                    <article>
+                        <a href="#" class="image">
+                            <img th:src="@{/images/foci3.jpg}" alt=""
+                                 onerror="this.src='https://images.unsplash.com/photo-1518091043644-c1d4457512c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';"/>
+                        </a>
+                        <h3>Lépjen Kapcsolatba Velünk</h3>
+                        <p>Kérdése van? Észrevételeit szívesen fogadjuk. Írjon nekünk közvetlenül!</p>
+                        <ul class="actions">
+                            <li><a th:href="@{/contact}" class="button">Üzenetküldés</a></li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+
+            <section id="search" class="alt">
+                <form method="post" action="#">
+                    <input type="text" name="query" id="query" placeholder="Keresés..." />
+                </form>
+            </section>
+
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menü</h2>
+                </header>
+                <ul>
+                    <li><a th:href="@{/}">Főoldal</a></li>
+                    <li><a th:href="@{/database}">Adatbázis (Lista)</a></li>
+                    <li><a th:href="@{/diagram}">Diagramok</a></li>
+                    <li><a th:href="@{/contact}">Kapcsolat</a></li>
+
+                    <li><a th:href="@{/rest}">REST API</a></li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/messages}">Üzenetek (Csak tagoknak)</a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/crud}">CRUD Műveletek</a>
+                    </li>
+
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}" style="color: red;">Admin Felület</a>
+                    </li>
+
+                    <hr>
+
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}" class="button primary fit">Belépés</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/register}">Regisztráció</a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <span style="font-size: 0.8em; color: gray;">Belépve mint:</span><br>
+                        <strong style="color: #f56a6a;" sec:authentication="name">Felhasználónév</strong>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post" style="margin-top: 10px;">
+                            <input type="submit" value="Kijelentkezés" class="button fit" />
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+
+            <footer id="footer">
+                <p class="copyright">&copy; NB1 Projekt. Minden jog fenntartva.<br> Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+            </footer>
+
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/browser.min.js}"></script>
+<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/assets/js/util.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>

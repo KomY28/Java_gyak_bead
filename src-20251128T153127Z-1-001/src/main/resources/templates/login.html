@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Belépés - NB1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<div id="wrapper">
+    <div id="main">
+        <div class="inner">
+
+            <header id="header">
+                <a th:href="@{/}" class="logo"><strong>NB1 Adatbázis</strong> Belépés</a>
+            </header>
+
+            <section>
+                <h3>Bejelentkezés</h3>
+
+                <div th:if="${param.error}">
+                    <div class="box" style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;">
+                        Hibás email cím vagy jelszó!
+                    </div>
+                </div>
+
+                <div th:if="${param.logout}">
+                    <div class="box" style="background-color: #cce5ff; color: #004085; border-color: #b8daff;">
+                        Sikeres kijelentkezés.
+                    </div>
+                </div>
+
+                <form method="post" th:action="@{/login}">
+                    <div class="row gtr-uniform">
+                        <div class="col-12">
+                            <label for="username">Email Cím</label>
+                            <input type="text" name="username" id="username" placeholder="Email cím" required />
+                        </div>
+                        <div class="col-12">
+                            <label for="password">Jelszó</label>
+                            <input type="password" name="password" id="password" placeholder="Jelszó" required />
+                        </div>
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><input type="submit" value="Belépés" class="primary" /></li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+                            <p>Nincs még fiókja? <a th:href="@{/register}">Regisztráljon itt!</a></p>
+                        </div>
+                    </div>
+                </form>
+
+            </section>
+
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="inner">
+            <nav id="menu">
+                <header class="major"><h2>Menü</h2></header>
+                <ul>
+                    <li><a th:href="@{/}">Főoldal</a></li>
+                    <li><a th:href="@{/database}">Adatbázis (Lista)</a></li>
+                    <li><a th:href="@{/diagram}">Diagramok</a></li>
+                    <li><a th:href="@{/rest}">REST API</a></li>
+                    <li><a th:href="@{/contact}">Kapcsolat</a></li>
+
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/messages}">Üzenetek</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/crud}">CRUD Műveletek</a></li>
+
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}" style="color: red;">Admin Felület</a>
+                    </li>
+
+                    <hr>
+
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}" class="button primary fit">Belépés</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/register}">Regisztráció</a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()">
+                        <span style="font-size: 0.8em; color: gray;">Belépve mint:</span><br>
+                        <strong style="color: #f56a6a;" sec:authentication="name">User</strong>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post" style="margin-top: 10px;">
+                            <input type="submit" value="Kijelentkezés" class="button fit" />
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/browser.min.js}"></script>
+<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/assets/js/util.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>
